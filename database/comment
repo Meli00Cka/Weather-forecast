@@ -1,0 +1,27 @@
+you must use query to insert data
+
+must make relation between tables
+
+
+
+
+
+Tables:
+
+
+
+cities
+--------------------
+id (pk) | name | country | lat | lon
+
+
+
+
+weather_tomorrow
+--------------------
+id | date(integer/text/time stamp) | city_id (fk)| temp | pres | humid | vis
+
+
+
+--------------------
+id | date | city_id (fk) | other (temp,pre ...)
