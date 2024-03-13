@@ -12,3 +12,7 @@
 5. Have discipline.
 
 "
+
+
+
+--make a list from the stuff in this dir--
