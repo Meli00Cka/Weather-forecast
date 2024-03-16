@@ -1,0 +1,15 @@
+https://stackoverflow.com/questions/151026/how-do-i-unlock-a-sqlite-database
+
+In Linux and macOS you can do something similar, for example, if your locked file is development.db:
+
+$ fuser development.db
+
+This command will show what process is locking the file:
+
+> development.db: 5430
+
+Just kill the process...
+
+kill -9 5430
+
+...And your database will be unlocked.
