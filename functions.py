@@ -55,14 +55,13 @@ def check_key_exists(file, key):
 
 
 def weather_convertor(k):
-    """_summary_
+    """Converts Kelvin to Celsius
     
-    Converts Kelvin to Celsius
-
     Args:
-        k (_type_): int, float
-
+        k (int or float): Kelvin value
+        
     Returns:
-        _type_: int, float
+        converted Celsius value
     """
+    
     return k - 273.15
