@@ -11,7 +11,7 @@ import time
 # sleep_timer
 def sleep_timer(min, max):
     
-    """
+    """Sleeps
     
         This function generates a random number between given numbers
         then sleeps.
@@ -35,7 +35,7 @@ def sleep_timer(min, max):
 # check_key_exists
 def check_key_exists(file, key):
     
-    """_summary_
+    """ Check if the given key exists or no
     This function checks if the given key exists in a data set or no,
     if not gives the indexes as a list
     """
@@ -65,3 +65,27 @@ def weather_convertor(k):
     """
     
     return k - 273.15
+
+def error_msg(message: str):
+    print("\033[0;3;33m" + message + "\033[0m")
+
+
+def user_input_code(message: str):
+    """Gets user input and handles input errors
+
+    Args:
+        message (str): The question you want to ask from user
+
+    Returns:
+        int: user's input
+    """
+    while True:
+        try:
+            user_input = input(f"{message}\n")
+            return int(user_input)
+        except ValueError:
+            error_msg("A ValueError exception has been occurred, input must be an integer")
+        except Exception as e:
+            error_msg(f"Unexpected error occurred: {e}")
+            
+            

@@ -7,7 +7,7 @@ import functions as fu
 def main():
     
     # Input
-    city = input("Please enter the city name: ").title().strip()
+    city = input("Please enter the capital city name: ").title().strip()
     
     
     
@@ -64,10 +64,10 @@ def main():
             while True:
                 
                 ## Input
-                days = fu.user_input_code("Forecast for how many days? (maximum 16-days)\n")
+                days = fu.user_input_code("Forecast for how many days? (maximum 16-days)")
                 
                 if 0 >= days or days > 16:
-                    print("Number can't be less than 1 or above 16")
+                    fu.error_msg("Number can't be less than 1 or above 16")
                     continue
                 else:
                     break
@@ -76,7 +76,7 @@ def main():
         
         ## Handle out of range inputs
         else:
-            print("this number is not on the list")
+            fu.error_msg("this number is not on the list")
             continue
         
         
