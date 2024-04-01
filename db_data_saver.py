@@ -18,7 +18,7 @@ def main():
 
     
     # get capitals & countries
-    capitals_json = tool.request_json("https://restcountries.com/v2/all")
+    capitals_json = tool.send_request("https://restcountries.com/v2/all")
 
 
     # clean/fix the result
@@ -59,7 +59,7 @@ def main():
         headers= {'X-Api-Key': key_ninjas}
         
         print(i+1)
-        ll_json = tool.request_json(base_url=url, parameters=parameters, headers=headers)
+        ll_json = tool.send_request(base_url=url, parameters=parameters, headers=headers)
 
         try:
             

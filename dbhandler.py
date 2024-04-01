@@ -16,7 +16,7 @@ class DbHandler:
             self.session = sqlite3.connect(self.db_path)
             
         except sqlite3.Error as error:
-            print(f"An error occurred:\n{error}")
+            tool.error_msg(f"An error occurred:\n{error}")
             
     def close(self):
         """Closes the connection"""
@@ -24,7 +24,7 @@ class DbHandler:
         if self.session:
             self.session.close()
         else:
-            print("No active connection to close.")
+            tool.error_msg("No active connection to close.")
 
 
 
@@ -60,7 +60,7 @@ class DbHandler:
         self.close()
        
                     
-    def execute(self, query, parameters=None, mode=""):
+    def execute(self, query, parameters=None, mode="non-table"):
 
         try:
             self.connect()
@@ -84,4 +84,4 @@ class DbHandler:
                 self.close()
                         
         except sqlite3.Error as error:
-            print(f"An error occurred:\n{error}")
+            tool.error_msg(f"An error occurred:\n{error}")

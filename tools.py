@@ -4,6 +4,7 @@ import requests as req
 import sqlite3
 import random
 import time
+import re
 
 
 ##### Functions
@@ -18,17 +19,43 @@ def error_msg(message: str, *args):
     print("\033[0m")
 
 
-def request_json(base_url ,parameters=None, headers=None):
+def extract_city_name(string):
+    pattern = r"^.*?(?=\s-)"
+    return re.search(string=string, pattern=pattern).group(0)
+
+
+def send_request(base_url ,parameters=None, headers=None, json=True):
     
     print(f"sending request to: {base_url}")
-    res = req.get(url=base_url, params=parameters, headers=headers)
-    st_code = res.status_code
     
-    if st_code == req.codes.ok:
-        return res.json()
-    else:
-        error_msg("Error:", st_code, res.text)
-        return None
+    try:
+        res = req.get(url=base_url, params=parameters, headers=headers)
+        st_code = res.status_code
+    
+        if st_code == req.codes.ok:
+            if json:
+                res = res.json()
+            return res
+        
+        else:
+            error_msg("Error:", st_code, res.text)
+            return False
+        
+    except req.exceptions.ConnectionError as e:
+        error_msg(f"Connection error: {e}")
+        return False
+    except req.exceptions.Timeout as e:
+        error_msg(f"Timeout error: {e}")
+        return False
+    except req.exceptions.HTTPError as e:
+        error_msg(f"HTTP error: {e}")
+        return False
+    except req.exceptions.TooManyRedirects as e:
+        error_msg(f"Too many redirects: {e}")
+        return False
+    except req.exceptions.RequestException as e:
+        error_msg(f"An unknown error occurred: {e}")
+        return False
     
 
 def sleep_timer(min, max):
