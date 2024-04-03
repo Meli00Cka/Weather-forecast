@@ -4,7 +4,6 @@ import requests as req
 import sqlite3
 import random
 import time
-import re
 
 
 ##### Functions
@@ -13,18 +12,15 @@ def configure():
     load_dotenv()
     
 def error_msg(message: str, *args):
+    """Prints a message with yellow color"""
     print("\033[0;33m" + message, end=' ')
     for arg in args:
         print(arg, end=' ')
     print("\033[0m")
-
-
-def extract_city_name(string):
-    pattern = r"^.*?(?=\s-)"
-    return re.search(string=string, pattern=pattern).group(0)
-
+    
 
 def send_request(base_url ,parameters=None, headers=None, json=True):
+    """Sends a request to the given url"""
     
     print(f"sending request to: {base_url}")
     
@@ -122,6 +118,7 @@ def user_input_code(message: str):
 
 
 def handle_sql_execute(session, *queries):
+    """execute the given query and handles errors"""
     try:
         cursor = session.cursor()
         
