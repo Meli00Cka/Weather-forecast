@@ -29,7 +29,11 @@ def main():
         
     # streamlit config
     st.set_page_config(
-        layout="centered"
+        layout="centered",
+        page_title="Weather Forecast", 
+        page_icon="https://cdn.weatherbit.io/static/img/icons/c02d.png", 
+        initial_sidebar_state="auto", 
+        menu_items=None
     )
     
     # load css
