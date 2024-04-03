@@ -3,13 +3,14 @@ from dbhandler import DbHandler
 import streamlit as st
 import tools as tool 
 import pandas as pd
-import os
+# import os
 
 def main():
     
     # setup
-    tool.configure()
-    key = os.getenv("key_weatherbit")
+    # tool.configure()
+    # key = os.getenv("key_weatherbit")
+    key = st.secrets["key_weatherbit"]
     
     dbhandler = DbHandler("./database.db")
 
