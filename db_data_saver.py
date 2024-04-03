@@ -1,14 +1,15 @@
 def main():
     
     # Import
+    from dbhandler import DbHandler
     import tools as tool
     import os
-    from dbhandler import DbHandler
     
 
     # get keys & database handler
     tool.configure()
     key_ninjas = os.getenv("key_ninjas")
+        # api key should be in a .env file
     
     dbhandler = DbHandler("database.db")
 
