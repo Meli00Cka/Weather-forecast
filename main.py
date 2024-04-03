@@ -3,13 +3,10 @@ from dbhandler import DbHandler
 import streamlit as st
 import tools as tool 
 import pandas as pd
-# import os
 
 def main():
     
     # setup
-    # tool.configure()
-    # key = os.getenv("key_weatherbit")
     key = st.secrets["key_weatherbit"]
     
     dbhandler = DbHandler("./database.db")
@@ -25,6 +22,9 @@ def main():
         
     if "days" not in st.session_state:
         st.session_state.days = None
+    
+    if "output" not in st.session_state:
+        st.session_state.output = ""
         
         
     # streamlit config
@@ -119,12 +119,12 @@ def main():
         else:
             if current_button:
 
-                output=weather_card(city_name, country_name, weather)
+                st.session_state.output=weather_card(city_name, country_name, weather)
                 
             elif st.session_state.forecast_button_status:
-                output=weather_card(city_name, country_name, weather, forecast=True, days=st.session_state.days)
+                st.session_state.output=weather_card(city_name, country_name, weather, forecast=True, days=st.session_state.days)
             
-            st.markdown(output, unsafe_allow_html=True)
+    st.markdown(st.session_state.output, unsafe_allow_html=True)
 
 
 
