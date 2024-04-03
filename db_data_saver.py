@@ -55,7 +55,11 @@ def main():
         
         # get lat & lon
         url= "https://api.api-ninjas.com/v1/geocoding"
-        parameters = {"city":capital}
+        if not country == capital:
+            parameters = {"city":capital, "country":country}
+        else:
+            parameters = {"city":capital}
+            
         headers= {'X-Api-Key': key_ninjas}
         
         print(i+1)

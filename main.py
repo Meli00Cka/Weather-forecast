@@ -124,7 +124,6 @@ def main():
                 output=weather_card(city_name, country_name, weather, forecast=True, days=st.session_state.days)
             
             st.markdown(output, unsafe_allow_html=True)
-            st.write(weather)
 
 
 
