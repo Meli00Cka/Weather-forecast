@@ -3,7 +3,7 @@ from dbhandler import DbHandler
 import streamlit as st
 import tools as tool 
 import pandas as pd
-# import os
+import os
 
 def main():
     
@@ -24,6 +24,9 @@ def main():
         
     if "days" not in st.session_state:
         st.session_state.days = None
+    
+    if "output" not in st.session_state:
+        st.session_state.output = ""
         
         
     # streamlit config
