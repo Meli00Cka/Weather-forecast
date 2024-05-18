@@ -9,7 +9,7 @@ def main():
     
     # setup
     tool.configure()
-    key = os.getenv("key_weatherbit")
+    key = os.getenv("key_openweathermap")
     
     dbhandler = DbHandler("./database.db")
 
@@ -73,14 +73,14 @@ def main():
 
         # currnet/forecast
         if current_button:
-            base_url = "https://api.weatherbit.io/v2.0/current"
+            base_url = "https://api.openweathermap.org/data/2.5/weather"
             submit = True
 
         elif st.session_state.forecast_button_status:
 
             st.session_state.days = st.slider(
                 min_value=1, 
-                max_value=16, 
+                max_value=4,
                 value= 1, 
                 label= "Forecast for how many days?", 
                 label_visibility="hidden"
@@ -94,7 +94,7 @@ def main():
                 st.write(f"Forecast for next {st.session_state.days} days")
 
 
-            base_url = "https://api.weatherbit.io/v2.0/forecast/daily"
+            base_url = "https://api.openweathermap.org/data/2.5/forecast"
 
             submit = st.button("Okay")
         
@@ -102,12 +102,11 @@ def main():
     # get weather
     if submit:
         
-        tool.sleep_timer(0.5, 1)
         parameters = {
             "lat" : lat,
             "lon" : lon,
-            "units" : "M",
-            "key" : key
+            "units" : "metric",
+            "appid" : key
         }
         weather = tool.send_request(base_url, parameters)
         
@@ -125,23 +124,33 @@ def main():
             
             st.markdown(output, unsafe_allow_html=True)
 
+        tool.sleep_timer(0.5, 1)
 
 
 def weather_card(city_name, country_name, weather_data, forecast=False, days=0):
     
     if forecast:
-        data_json = weather_data["data"][days]
-        temp_feel = (data_json["app_max_temp"] + data_json["app_min_temp"]) / 2
+        data_json = weather_data["list"][days*7]
+        
+        temp = data_json["main"]["temp"]
+        temp_feel = data_json["main"]["feels_like"]
+        pressure = data_json["main"]["pressure"]
+        humidity = data_json["main"]["humidity"]
+        description = data_json["weather"][0]["description"]
+        icon = data_json["weather"][0]["icon"]
+        visibility = data_json["visibility"]
+        
     else:
-        data_json = weather_data["data"][days]
-        temp_feel = data_json["app_temp"]
+        data_json = weather_data["main"]
+        
+        description = weather_data["weather"][0]["description"]
+        icon = weather_data["weather"][0]["icon"]
+        temp = data_json["temp"]
+        temp_feel = data_json["feels_like"]
+        humidity = data_json["humidity"]
+        pressure = data_json["pressure"]
+        visibility = weather_data["visibility"]
     
-    description = data_json["weather"]["description"]
-    temp = data_json["temp"]
-    humidity = data_json["rh"]
-    pressure = data_json["pres"]
-    visibility = data_json["vis"]
-    icon = data_json["weather"]["icon"]
     
     t_text_color = temperature_hex_color(temp)
     tf_text_color = temperature_hex_color(temp_feel)
@@ -157,7 +166,7 @@ def weather_card(city_name, country_name, weather_data, forecast=False, days=0):
             </div>
         </div>
         <div class="weather_details">
-            <img src="https://www.weatherbit.io/static/img/icons/{icon}.png" alt="weather icon" title="{description}">
+            <img src="https://openweathermap.org/img/wn/{icon}@2x.png" alt="weather icon" title="{description}">
             <p>Humidity: {humidity}%</p>
             <p>Visibility: {visibility:.1f} KM</p>
             <p>Pressure: {pressure} MB</p>
