@@ -3,13 +3,13 @@ from dbhandler import DbHandler
 import streamlit as st
 import tools as tool 
 import pandas as pd
-import os
-
+# import os
 def main():
     
     # setup
-    tool.configure()
-    key = os.getenv("key_openweathermap")
+    # tool.configure()
+    # key = os.getenv("key_openweathermap")
+    key = st.secrets["key_openweather"]
     
     dbhandler = DbHandler("./database.db")
 
@@ -131,7 +131,7 @@ def main():
             
     st.markdown(st.session_state.output, unsafe_allow_html=True)
 
-        tool.sleep_timer(0.5, 1)
+    tool.sleep_timer(0.5, 1)
 
 
 def weather_card(city_name, country_name, weather_data, forecast=False, days=0):
