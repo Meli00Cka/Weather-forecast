@@ -40,6 +40,9 @@
     margin: 1% 5%;
     float: left;
 }
+.weather_details img{
+    width: 120px;
+}
 .font_large{
     font-size: x-large;
 }
